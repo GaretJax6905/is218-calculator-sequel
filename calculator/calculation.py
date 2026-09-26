@@ -8,7 +8,7 @@ class Calculation(ABC):
 
     @abstractmethod
     def get_result(self) -> float:
-        pass
+        """Calculate and return the result."""
 
 
 class Add(Calculation):
@@ -19,3 +19,13 @@ class Add(Calculation):
 class Subtract(Calculation):
     def get_result(self) -> float:
         return self.a - self.b
+
+
+class Multiply(Calculation):
+    def get_result(self) -> float:
+        return self.a * self.b
+
+
+class Divide(Calculation):
+    def get_result(self) -> float:
+        return self.a / self.b if self.b != 0 else (_ for _ in ()).throw(ZeroDivisionError("Cannot divide by zero."))
