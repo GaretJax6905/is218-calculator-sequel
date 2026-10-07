@@ -14,10 +14,12 @@ class CalculationFactory:
         "sqrt": Operations.sqrt,
         "power": Operations.power,
         "sum": Operations.sum,
+        "mean": Operations.mean,
+        "stddev": Operations.stddev,
     }
     operand_counts = {"add": 2, "subtract": 2, "multiply": 2, "divide": 2,
                       "square": 1, "sqrt": 1, "power": 1}
-    allowed_options = {"power": {"exponent"}}
+    allowed_options = {"power": {"exponent"}, "stddev": {"ddof"}}
 
     @staticmethod
     def create(name, *values, **options):

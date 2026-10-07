@@ -1,5 +1,6 @@
 """Static math: no instance state, no I/O."""
 from math import pow as _pow, sqrt as _sqrt
+from calculator import statistics
 
 
 class Operations:
@@ -41,3 +42,11 @@ class Operations:
         for value in values:
             total += value
         return total
+
+    @staticmethod
+    def mean(*values):
+        return statistics.mean(values)
+
+    @staticmethod
+    def stddev(*values, ddof=1):
+        return statistics.standard_deviation(values, ddof=ddof)
