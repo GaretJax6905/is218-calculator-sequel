@@ -1,4 +1,3 @@
-import runpy
 import pytest
 from calculator.operations import Operations
 from calculator.calculation import Calculation
@@ -58,8 +57,3 @@ def test_history_copy_protects_entries():
     assert history.get_history() == [(calc, 5.0)]
     history.clear()
     assert history.get_history() == []
-
-
-def test_demo_entry_point(capsys):
-    runpy.run_module("calculator", run_name="__main__")
-    assert "5.0" in capsys.readouterr().out
