@@ -32,27 +32,27 @@ def test_construction_does_not_execute():
         calls.append((a, b))
         return a + b
 
-    calc = Calculation(2, 3, spy)
+    calc = Calculation([2, 3], spy)
     assert calls == []                       # stored, not run
     assert calc.get_result() == 5.0
     assert calls == [(2.0, 3.0)]             # run exactly once
 
 
 def test_zero_divisor_constructs_then_fails():
-    calc = Calculation(1, 0, Operations.divide)
+    calc = Calculation([1, 0], Operations.divide)
     with pytest.raises(ZeroDivisionError):
         calc.get_result()
 
 
 def test_nonfinite_result_rejected():
-    calc = Calculation(1e308, 10, Operations.multiply)
+    calc = Calculation([1e308, 10], Operations.multiply)
     with pytest.raises(ValueError):
         calc.get_result()
 
 
 def test_history_copy_protects_entries():
     history = History()
-    calc = Calculation(2, 3, Operations.add)
+    calc = Calculation([2, 3], Operations.add)
     history.add(calc, 5.0)
     history.get_history().clear()            # mutate the copy
     assert history.get_history() == [(calc, 5.0)]
