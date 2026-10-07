@@ -1,4 +1,4 @@
-from calculator.cli import run
+from calculator.calculation import Calculation
+from calculator.operations import Operations
 
-if __name__ == "__main__":
-    run()
+print(Calculation(2, 3, Operations.add).get_result())

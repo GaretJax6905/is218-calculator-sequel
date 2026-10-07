@@ -1,20 +1,15 @@
-from typing import List
-from calculator.calculation import Calculation
+"""History owns a private entry list of (calculation, result) pairs."""
 
 
 class History:
-    def __init__(self) -> None:
-        self._calculations: List[Calculation] = []
+    def __init__(self):
+        self._entries = []
 
-    def add(self, calculation: Calculation) -> None:
-        if not isinstance(calculation, Calculation):
-            raise TypeError("Must be a Calculation instance.")
-        self._calculations.append(calculation)
+    def add(self, calculation, result):
+        self._entries.append((calculation, result))
 
-    def get_history(self) -> List[Calculation]:
-        return self._calculations.copy()
+    def get_history(self):
+        return list(self._entries)      # shallow copy
 
-    def remove(self, index: int) -> Calculation:
-        if index < 0 or index >= len(self._calculations):
-            raise IndexError("History index out of range.")
-        return self._calculations.pop(index)
+    def clear(self):
+        self._entries.clear()

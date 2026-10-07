@@ -1,31 +1,17 @@
-from abc import ABC, abstractmethod
+"""Store two operands and a callable; run math only in get_result."""
+from math import isfinite
+from calculator.validation import numeric_values
 
 
-class Calculation(ABC):
-    def __init__(self, a: float, b: float) -> None:
-        self.a: float = a
-        self.b: float = b
+class Calculation:
+    def __init__(self, a, b, operation):
+        numbers = numeric_values([a, b])
+        self.a = numbers[0]
+        self.b = numbers[1]
+        self.operation = operation
 
-    @abstractmethod
-    def get_result(self) -> float:
-        """Calculate and return the result."""
-
-
-class Add(Calculation):
-    def get_result(self) -> float:
-        return self.a + self.b
-
-
-class Subtract(Calculation):
-    def get_result(self) -> float:
-        return self.a - self.b
-
-
-class Multiply(Calculation):
-    def get_result(self) -> float:
-        return self.a * self.b
-
-
-class Divide(Calculation):
-    def get_result(self) -> float:
-        return self.a / self.b if self.b != 0 else (_ for _ in ()).throw(ZeroDivisionError("Cannot divide by zero."))
+    def get_result(self):
+        result = float(self.operation(self.a, self.b))
+        if not isfinite(result):
+            raise ValueError("Result is outside the supported range.")
+        return result
