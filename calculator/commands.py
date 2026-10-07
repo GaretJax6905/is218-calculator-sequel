@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 HELP = ("Commands: add/subtract/multiply/divide A B; square/sqrt VALUE; "
         "power VALUE exponent=N; sum/mean/stddev VALUES (stddev ddof=0/1); "
-        "csv mean/stddev PATH; history; clear; help; exit")
+        "csv mean/stddev PATH; count; history; clear; help; exit")
 
 def _format_entry(calculation, result) -> str:
     values = " ".join(str(value) for value in calculation.values)
@@ -50,3 +50,10 @@ class ClearHistoryCommand(Command):
 class HelpCommand(Command):
     def execute(self) -> str:
         return HELP
+
+class CountCommand(Command):
+    def __init__(self, session):
+        self.session = session
+
+    def execute(self) -> str:
+        return f"Successful calculations: {len(self.session.get_history())}"
